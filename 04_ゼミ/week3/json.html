@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>配列を使ったメモアプリ</title>
+  </head>
+  <body>
+    <h2>配列を使ったメモアプリ</h2>
+    <input type="text" id="memo-input" />
+    <button id="add-button">保存</button>
+    <div id="memo-container"></div>
+    <script>
+      const memoInput = document.getElementById("memo-input")
+      const addButton = document.getElementById("add-button")
+      const memoContainer = document.getElementById("memo-container")
+
+      let memos = []
+
+      addButton.onclick = function () {
+        // inputに入力した内容を取得する
+        const text = memoInput.value
+        memos.push(text)
+        console.log(typeof memos)
+        localStorage.memos = JSON.stringify(memos)
+        if (localStorage.memos) {
+          const memosJson = localStorage.memos
+          memos = JSON.parse(memosJson)
+
+          memoContainer.textContent = ""
+
+          for (let i = 0; i < memos.length; i++) {
+            const div = document.createElement("div")
+            div.textContent = memos[i]
+            memoContainer.append(div)
+          }
+        }
+
+        // 取得した内容をDOMに反映する
+        // const div = document.createElement("div");
+        // div.textContent = text;
+        // memoContainer.append(div);
+      }
+    </script>
+  </body>
+</html>
